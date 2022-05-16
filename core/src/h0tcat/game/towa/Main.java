@@ -22,12 +22,13 @@ public class Main extends ApplicationAdapter {
 	@Override
 	public void create () {
 		renderer = new ShapeRenderer();
-		cursor = new Cursor(Gdx.files.internal("data/sysgraphics/ui_arrow.png"), -64, -80);
-		cursor.setOrigin(cursor.getWidth(), cursor.getHeight());
+		cursor = new Cursor(Gdx.files.internal("data/sysgraphics/ui_arrow.png"), -70, -75);
+		cursor.setCenterX(cursor.getWidth() / 2);
+		cursor.setCenterY(cursor.getHeight() / 2);
 		fonts = new HashMap<String, GameFont>();
 		
 		fonts.put("title", new GameFont("Towa Engine", graphics.getWidth() / 4 + 50, graphics.getHeight() - 50, Color.BLACK, Color.WHITE));
-		fonts.put("1on1", new GameFont("1on1", graphics.getWidth() / 4 + 100, 232, Color.BLACK, Color.WHITE));
+		fonts.put("1on1", new GameFont("一騎打ち", graphics.getWidth() / 4 + 100, 232, Color.BLACK, Color.WHITE));
 		fonts.put("exit", new GameFont("Exit", graphics.getWidth() / 4 + 100, 200, Color.BLACK, Color.WHITE));
 		
 		renderer.setAutoShapeType(true);
@@ -35,7 +36,6 @@ public class Main extends ApplicationAdapter {
 
 	@Override
 	public void render () {
-
 		renderer.begin(ShapeRenderer.ShapeType.Filled);
 		renderer.setColor(200, 200, 200, 255);
 		renderer.rect(0, 0, graphics.getWidth(), graphics.getHeight());
@@ -44,6 +44,7 @@ public class Main extends ApplicationAdapter {
 		for(GameFont font : fonts.values()){
 			font.draw();
 		}
+
 		cursor.draw();
 	}
 	
