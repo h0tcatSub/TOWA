@@ -1,10 +1,9 @@
 package h0tcat.game.towa;
 
-import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.Gdx;
-
 import static com.badlogic.gdx.Gdx.graphics;
 
+import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.Gdx;
 import java.util.HashMap;
 
 import com.badlogic.gdx.graphics.Color;

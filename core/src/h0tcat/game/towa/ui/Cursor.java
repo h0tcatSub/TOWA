@@ -17,8 +17,9 @@ public class Cursor extends Sprite{
     private double rY;
     private double rX;
     private double deg = 0;
-    private int index;
-
+    private int index = 0, indexBuf;
+    private final int defaultPosition = -75;
+    private final int maxOptions = 2;
     public Cursor(FileHandle handle){
         texture = new Texture(handle);
         sprite = new Sprite(texture);
@@ -33,7 +34,7 @@ public class Cursor extends Sprite{
 
         this.x = x;
         this.y = y;
-        rX = 0.7;
+        rX = 5;
         rY = 0.01;
     }
 
@@ -55,22 +56,48 @@ public class Cursor extends Sprite{
         this.y = y;
     }
 
-    public void draw(){
+    public void calcWave(){
         deg += 0.1;
         if(deg >= Double.MAX_VALUE - 100){
             deg = 0;
         }
         waveX = (float) (rX * Math.cos(deg));
         waveY = (float) (rY * Math.sin(deg));
-        batch.begin();
+    }
 
-        if (Gdx.input.isKeyPressed(Keys.DOWN)) {
-            y += 29;
-        } else if (Gdx.input.isKeyPressed(Keys.UP)) {
-            y -= 29;
+    public void selectCommand(){
+        if(index >= Integer.MAX_VALUE -100){
+            index = 0;
+        }
+        if (Gdx.input.isKeyJustPressed(Keys.DOWN)) {
+            index++;
+        } else if (Gdx.input.isKeyJustPressed(Keys.UP)) {
+            index--;
+        }
+        indexBuf = index;
+        index %= maxOptions;
+        if(indexBuf > maxOptions){
+            index = 1;
+        }else if(indexBuf < 0) {
+            index = 1;
         }
 
+        switch(index){
+            case 0:
+                y = defaultPosition;
+                break;
+            case 1:
+                y = defaultPosition - 32;
+                break;
+        }
+        sprite.setX(x);
         sprite.setY(y);
+    }
+    public void draw(){
+
+        calcWave();
+        batch.begin();
+        selectCommand();
         sprite.translate((float)waveX, (float)waveY);
         sprite.draw(batch);
         batch.end();
