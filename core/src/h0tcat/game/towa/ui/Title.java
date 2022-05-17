@@ -1,6 +1,9 @@
 package h0tcat.game.towa.ui;
 
 import static com.badlogic.gdx.Gdx.graphics;
+
+import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.badlogic.gdx.Gdx;
@@ -9,6 +12,7 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.utils.GdxRuntimeException;
 
 import h0tcat.game.towa.ui.util.Cursor;
 import h0tcat.game.towa.util.GameFont;
@@ -19,10 +23,12 @@ public class Title implements Screen{
 	private ShapeRenderer renderer;
 	private HashMap<String, GameFont> fonts;
     private HashMap<String, GameSound> sounds;
-	private Cursor cursor;
+    private ArrayList<GameSound> bgm;
 
+	private Cursor cursor;
     private int index = 0, indexBuf, maxOptions = 2;
     private final int defaultPosition = -75;
+    private ArrayList<String> bgmNames;
 
     public void selectCommand(){
         if(index >= Integer.MAX_VALUE -100){
@@ -83,16 +89,33 @@ public class Title implements Screen{
 		fonts = new HashMap<>();
 		cursor = new Cursor(new Texture(Gdx.files.internal("data/sysgraphics/ui_arrow.png")), -70, -75);
         sounds = new HashMap<>();
-		
+        bgm = new ArrayList<>();
+        bgmNames = new ArrayList<>();
+
+        File[] musics = new File("data/music/").listFiles();
+        if(musics.length > 0){
+            for(File music : musics){
+                try{
+                    bgm.add(new GameSound(music.getPath()));
+                    bgmNames.add(music.getName());
+                } catch(GdxRuntimeException notMusic){
+                    notMusic.printStackTrace();
+                }
+            }
+        }
+        if(bgm.size() > 0){
+            int bgmIndex = (int)Math.random() * bgm.size();
+            bgm.get(bgmIndex).play();
+            fonts.put("plaingBGM", new GameFont("BGM : ".concat(bgmNames.get(bgmIndex)), -(graphics.getWidth()), graphics.getHeight(), Color.BLACK, Color.WHITE, 10));
+        }
         index = 0;
 
-        sounds.put("select", new GameSound("select.mp3"));
-        sounds.put("enter", new GameSound("enter.mp3"));
+        sounds.put("select", new GameSound("data/syssnd/select.mp3"));
+        sounds.put("enter", new GameSound("data/syssnd/enter.mp3"));
 		
 		fonts.put("title", new GameFont("Towa Engine", graphics.getWidth() / 4 + 50, graphics.getHeight() - 50, Color.BLACK, Color.WHITE));
 		fonts.put("1on1", new GameFont("一騎打ち", graphics.getWidth() / 4 + 100, 232, Color.BLACK, Color.WHITE));
 		fonts.put("exit", new GameFont("Exit", graphics.getWidth() / 4 + 100, 200, Color.BLACK, Color.WHITE));
-
 		renderer.setAutoShapeType(true);
     }
 
