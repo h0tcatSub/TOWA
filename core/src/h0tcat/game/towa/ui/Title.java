@@ -35,6 +35,10 @@ public class Title implements Screen{
             sounds.get("select").play(1.f, 0.7f, 0.f);
             index--;
         }
+        if(Gdx.input.isKeyJustPressed(Keys.ENTER)){
+            sounds.get("enter").play(1.f, 0.7f, 0.f);
+            enterCommand();
+        }
         indexBuf = index;
         index %= maxOptions;
         if(indexBuf > maxOptions){
@@ -52,6 +56,26 @@ public class Title implements Screen{
                 break;
         }
         cursor.setY(cursor.getY());
+    }
+
+    public void enterCommand(){
+        switch(index){
+            case 0:
+
+                break;
+            case 1:
+                renderer.dispose();
+                for(String key : fonts.keySet()){
+                    fonts.get(key).dispose();
+                }
+                Gdx.app.exit();
+                try {
+                    Thread.sleep(700);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                break;                
+        }
     }
     @Override
     public void show() {
