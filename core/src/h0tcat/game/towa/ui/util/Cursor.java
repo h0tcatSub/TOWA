@@ -1,4 +1,4 @@
-package h0tcat.game.towa.ui;
+package h0tcat.game.towa.ui.util;
 
 import java.util.HashMap;
 
@@ -21,9 +21,8 @@ public class Cursor extends Sprite{
     private double rY;
     private double rX;
     private double deg = 0;
-    private int index = 0, indexBuf;
-    private final int defaultPosition = -75;
-    private final int maxOptions = 2;
+    private int index = 0;
+    private int maxOptions, indexBuf, defaultX, defaultY;
     private HashMap<String, GameSound> sounds;
 
     public Cursor(FileHandle handle){
@@ -51,6 +50,24 @@ public class Cursor extends Sprite{
 
     public Cursor(FileHandle handle, float x, float y, float originX, float originY){
         this(handle, x, y);
+        super.setOrigin(originX, originY);
+    }
+    
+    public Cursor(
+        FileHandle handle,
+        float x,
+        float y,
+        float originX,
+        float originY,
+        int defaultX,
+        int defaultY,
+        int maxOptions)
+    {
+        this(handle, x, y);
+
+        this.defaultX = defaultX;
+        this.defaultY = defaultY;
+        this.maxOptions = maxOptions;
         super.setOrigin(originX, originY);
     }
 
