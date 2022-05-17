@@ -33,6 +33,7 @@ public class Main extends ApplicationAdapter {
 		renderer.setAutoShapeType(true);
 	}
 
+
 	@Override
 	public void render () {
 		renderer.begin(ShapeRenderer.ShapeType.Filled);
