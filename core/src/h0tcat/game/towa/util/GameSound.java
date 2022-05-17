@@ -2,14 +2,14 @@ package h0tcat.game.towa.util;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.utils.GdxRuntimeException;
 
 public class GameSound implements Sound{
-    private final String soundDirectory = "data/syssnd/";
     private Sound sound;
     private long id;
 
-    public GameSound(String soundName){
-        sound = Gdx.audio.newSound(Gdx.files.internal(soundDirectory.concat(soundName)));
+    public GameSound(String soundName) throws GdxRuntimeException{
+        sound = Gdx.audio.newSound(Gdx.files.internal(soundName));
     }
 
     public long getID(){

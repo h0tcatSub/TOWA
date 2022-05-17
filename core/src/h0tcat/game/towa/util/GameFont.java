@@ -17,7 +17,6 @@ public class GameFont {
     private FreeTypeFontParameter parameter;
     private String text;
     private float x, y;
-    private final String useChars = "一騎打ち";
 
     public GameFont(String text, int x, int y, Color color, Color borderColor){
 		file = Gdx.files.internal("data/sysfonts/nicokaku_v1.ttf");
@@ -32,13 +31,19 @@ public class GameFont {
         parameter.color = color;
         parameter.borderColor = borderColor;
         parameter.characters += FreeTypeFontGenerator.DEFAULT_CHARS;
-        parameter.characters += useChars;
+        parameter.characters += text;
 
 		parameter.size = 32;
 		
 		font = generator.generateFont(parameter);
     }
 
+    public GameFont(String text, int x, int y, Color color, Color borderColor, int size){
+        this(text, x, y, color, borderColor);
+		parameter.size = size;
+		
+		font = generator.generateFont(parameter);
+    }
     public void draw(){
         sprite.begin();
         font.draw(sprite, text, x, y);
