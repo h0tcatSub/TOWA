@@ -14,6 +14,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 
+import java.util.Random;
 import h0tcat.game.towa.ui.util.Cursor;
 import h0tcat.game.towa.util.GameFont;
 import h0tcat.game.towa.util.GameSound;
@@ -87,7 +88,7 @@ public class Title implements Screen{
     public void show() {
 		renderer = new ShapeRenderer();
 		fonts = new HashMap<>();
-		cursor = new Cursor(new Texture(Gdx.files.internal("data/sysgraphics/ui_arrow.png")), -70, -75);
+		cursor = new Cursor(new Texture(Gdx.files.internal("data/sysgraphics/ui_arrow.png")), -30, -75);
         sounds = new HashMap<>();
         bgm = new ArrayList<>();
         bgmNames = new ArrayList<>();
@@ -104,9 +105,11 @@ public class Title implements Screen{
             }
         }
         if(bgm.size() > 0){
-            int bgmIndex = (int)Math.random() * bgm.size();
-            bgm.get(bgmIndex).play();
-            fonts.put("plaingBGM", new GameFont("BGM : ".concat(bgmNames.get(bgmIndex)), -(graphics.getWidth()), graphics.getHeight(), Color.BLACK, Color.WHITE, 10));
+            Random random = new Random();
+            int bgmIndex = random.nextInt(bgm.size());
+            bgm.get(bgmIndex).play(0.6f);
+            String bgmName = ("BGM : ".concat(bgmNames.get(bgmIndex)));
+            fonts.put("plaingBGM", new GameFont(bgmName, 0, graphics.getHeight(), Color.BLACK, Color.WHITE, 10));
         }
         index = 0;
 

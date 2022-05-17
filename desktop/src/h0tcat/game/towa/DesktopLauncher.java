@@ -9,6 +9,7 @@ public class DesktopLauncher {
 		config.setForegroundFPS(60);
 		config.setIdleFPS(60);
 		config.setTitle("TOWA");
+		config.setWindowedMode(840, 680);
 		config.setResizable(false);
 		new Lwjgl3Application(new Main(), config);
 	}
