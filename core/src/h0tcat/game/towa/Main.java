@@ -15,6 +15,7 @@ public class Main extends Game {
 		scenes = new HashMap<>();
 		
 		scenes.put("title", new Title());
+		setScreen(getScene("title"));
 	}
 
 	public static Screen getScene(String scene){
@@ -23,7 +24,7 @@ public class Main extends Game {
 
 	@Override
 	public void render () {
-		setScreen(getScene("title"));
+		super.render();
 	}
 	
 	@Override
