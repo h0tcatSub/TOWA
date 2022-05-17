@@ -1,11 +1,15 @@
 package h0tcat.game.towa.ui;
 
+import java.util.HashMap;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+
+import h0tcat.game.towa.util.GameSound;
 
 public class Cursor extends Sprite{
     
@@ -20,11 +24,18 @@ public class Cursor extends Sprite{
     private int index = 0, indexBuf;
     private final int defaultPosition = -75;
     private final int maxOptions = 2;
+    private HashMap<String, GameSound> sounds;
+
     public Cursor(FileHandle handle){
         texture = new Texture(handle);
         sprite = new Sprite(texture);
         batch = new SpriteBatch();
         index = 0;
+
+        sounds = new HashMap<>();
+        sounds.put("select", new GameSound("select.mp3"));
+        sounds.put("exit", new GameSound("enter.mp3"));
+
         super.setTexture(texture);
         sprite.setScale(0.3f, 0.3f);
     }
@@ -70,16 +81,18 @@ public class Cursor extends Sprite{
             index = 0;
         }
         if (Gdx.input.isKeyJustPressed(Keys.DOWN)) {
+            sounds.get("select").play(1.f, 0.7f, 0.f);
             index++;
         } else if (Gdx.input.isKeyJustPressed(Keys.UP)) {
+            sounds.get("select").play(1.f, 0.7f, 0.f);
             index--;
         }
         indexBuf = index;
         index %= maxOptions;
         if(indexBuf > maxOptions){
-            index = 1;
+            index = maxOptions - 1;
         }else if(indexBuf < 0) {
-            index = 1;
+            index = maxOptions - 1;
         }
 
         switch(index){
@@ -93,6 +106,7 @@ public class Cursor extends Sprite{
         sprite.setX(x);
         sprite.setY(y);
     }
+    
     public void draw(){
 
         calcWave();
