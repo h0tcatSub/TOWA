@@ -85,4 +85,7 @@ public class AI {
         }
     }
 
+    public void draw(){
+        character.draw();
+    }
 }
