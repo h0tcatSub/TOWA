@@ -1,4 +1,4 @@
-package h0tcat.game.towa.core.player;
+package h0tcat.game.towa.player;
 
 public abstract class Character {
     /**

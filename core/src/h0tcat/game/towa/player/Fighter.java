@@ -1,4 +1,4 @@
-package h0tcat.game.towa.core.player;
+package h0tcat.game.towa.player;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
