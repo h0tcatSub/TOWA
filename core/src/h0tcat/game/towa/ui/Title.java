@@ -107,7 +107,7 @@ public class Title implements Screen{
         if(bgm.size() > 0){
             Random random = new Random();
             int bgmIndex = random.nextInt(bgm.size());
-            bgm.get(bgmIndex).play(0.6f);
+            bgm.get(bgmIndex).play(0.3f);
             String bgmName = ("BGM : ".concat(bgmNames.get(bgmIndex)));
             fonts.put("plaingBGM", new GameFont(bgmName, 0, graphics.getHeight(), Color.BLACK, Color.WHITE, 10));
         }
