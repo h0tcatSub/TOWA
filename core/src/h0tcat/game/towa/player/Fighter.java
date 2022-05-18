@@ -24,4 +24,10 @@ public abstract class Fighter extends Character{
     public float getY(){
         return sprite.getY();
     }
+
+    public void draw(){
+        batch.begin();
+        sprite.draw(batch);
+        batch.end();
+    }
 }
