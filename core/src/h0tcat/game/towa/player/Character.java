@@ -14,8 +14,10 @@ public abstract class Character {
     public abstract void smash(Direction direction);
     public abstract void jump();
     public abstract void squat();
+    
     public abstract void grab();
     public abstract void throwChara();
+    
     public abstract void guard();
     
     public abstract void stun();
