@@ -19,4 +19,6 @@
         ゲーム内のフォント
     効果音ラボ様 https://soundeffect-lab.info/sound/button/
         ゲーム内に使われる効果音など
+    umechi様　https://commons.nicovideo.jp/user/157522
+        シャボン玉素材をシールドのグラフィックとして使用
 ```
