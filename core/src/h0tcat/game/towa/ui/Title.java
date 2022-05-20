@@ -6,6 +6,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Input.Keys;
@@ -30,7 +31,11 @@ public class Title implements Screen{
     private int index = 0, indexBuf, maxOptions = 2;
     private final int defaultPosition = -75;
     private ArrayList<String> bgmNames;
+    private Game content;
 
+    public Title(Game content){
+        this.content = content;
+    }
     public void selectCommand(){
         if(index >= Integer.MAX_VALUE -100){
             index = 0;
@@ -68,19 +73,15 @@ public class Title implements Screen{
     public void enterCommand(){
         switch(index){
             case 0:
-
+                content.setScreen(new CharacterSelect(content));
                 break;
             case 1:
-                renderer.dispose();
-                for(String key : fonts.keySet()){
-                    fonts.get(key).dispose();
-                }
-                Gdx.app.exit();
                 try {
                     Thread.sleep(700);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+                Gdx.app.exit();
                 break;                
         }
     }
@@ -119,6 +120,7 @@ public class Title implements Screen{
 		fonts.put("title", new GameFont("Towa Engine", graphics.getWidth() / 4 + 50, graphics.getHeight() - 50, Color.BLACK, Color.WHITE));
 		fonts.put("1on1", new GameFont("一騎打ち", graphics.getWidth() / 4 + 100, 232, Color.BLACK, Color.WHITE));
 		fonts.put("exit", new GameFont("Exit", graphics.getWidth() / 4 + 100, 200, Color.BLACK, Color.WHITE));
+
 		renderer.setAutoShapeType(true);
     }
 
