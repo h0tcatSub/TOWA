@@ -2,8 +2,6 @@ package h0tcat.game.towa.ui;
 
 import static com.badlogic.gdx.Gdx.graphics;
 
-import java.io.File;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.badlogic.gdx.Game;
@@ -13,9 +11,8 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.utils.GdxRuntimeException;
 
-import java.util.Random;
+import h0tcat.game.towa.Main;
 import h0tcat.game.towa.ui.util.Cursor;
 import h0tcat.game.towa.util.GameFont;
 import h0tcat.game.towa.util.GameSound;
@@ -23,18 +20,18 @@ import h0tcat.game.towa.util.GameSound;
 public class Title implements Screen{
 
 	private ShapeRenderer renderer;
-	private HashMap<String, GameFont> fonts;
-    private HashMap<String, GameSound> sounds;
-    private ArrayList<GameSound> bgm;
-
 	private Cursor cursor;
     private int index = 0, indexBuf, maxOptions = 2;
     private final int defaultPosition = -75;
-    private ArrayList<String> bgmNames;
     private Game content;
+    private HashMap<String, GameSound> sounds;
 
     public Title(Game content){
         this.content = content;
+		
+        renderer = new ShapeRenderer();
+		cursor = new Cursor(new Texture(Gdx.files.internal("data/sysgraphics/ui_arrow.png")), -30, -75);
+        sounds = new HashMap<>();
     }
     public void selectCommand(){
         if(index >= Integer.MAX_VALUE -100){
@@ -74,6 +71,7 @@ public class Title implements Screen{
         switch(index){
             case 0:
                 content.setScreen(new CharacterSelect(content));
+                this.hide();
                 break;
             case 1:
                 try {
@@ -87,39 +85,14 @@ public class Title implements Screen{
     }
     @Override
     public void show() {
-		renderer = new ShapeRenderer();
-		fonts = new HashMap<>();
-		cursor = new Cursor(new Texture(Gdx.files.internal("data/sysgraphics/ui_arrow.png")), -30, -75);
-        sounds = new HashMap<>();
-        bgm = new ArrayList<>();
-        bgmNames = new ArrayList<>();
-
-        File[] musics = new File("data/music/").listFiles();
-        if(musics.length > 0){
-            for(File music : musics){
-                try{
-                    bgm.add(new GameSound(music.getPath()));
-                    bgmNames.add(music.getName());
-                } catch(GdxRuntimeException notMusic){
-                    notMusic.printStackTrace();
-                }
-            }
-        }
-        if(bgm.size() > 0){
-            Random random = new Random();
-            int bgmIndex = random.nextInt(bgm.size());
-            bgm.get(bgmIndex).loop(0.3f);
-            String bgmName = ("BGM : ".concat(bgmNames.get(bgmIndex)));
-            fonts.put("plaingBGM", new GameFont(bgmName, 0, graphics.getHeight(), Color.BLACK, Color.WHITE, 10));
-        }
         index = 0;
 
         sounds.put("select", new GameSound("data/syssnd/select.mp3"));
         sounds.put("enter", new GameSound("data/syssnd/enter.mp3"));
 		
-		fonts.put("title", new GameFont("Towa Engine", graphics.getWidth() / 4 + 50, graphics.getHeight() - 50, Color.BLACK, Color.WHITE));
-		fonts.put("1on1", new GameFont("一騎打ち", graphics.getWidth() / 4 + 100, 232, Color.BLACK, Color.WHITE));
-		fonts.put("exit", new GameFont("Exit", graphics.getWidth() / 4 + 100, 200, Color.BLACK, Color.WHITE));
+		Main.getFonts().put("title", new GameFont("Towa Engine", graphics.getWidth() / 4 + 50, graphics.getHeight() - 50, Color.BLACK, Color.WHITE));
+		Main.getFonts().put("1on1", new GameFont("一騎打ち", graphics.getWidth() / 4 + 100, 232, Color.BLACK, Color.WHITE));
+		Main.getFonts().put("exit", new GameFont("Exit", graphics.getWidth() / 4 + 100, 200, Color.BLACK, Color.WHITE));
 
 		renderer.setAutoShapeType(true);
     }
@@ -131,7 +104,7 @@ public class Title implements Screen{
 		renderer.rect(0, 0, graphics.getWidth(), graphics.getHeight());
 		renderer.end();
 		
-		for(GameFont font : fonts.values()){
+		for(GameFont font : Main.getFonts().values()){
 			font.draw();
 		}
 
@@ -143,8 +116,8 @@ public class Title implements Screen{
     @Override
     public void dispose() {
 		renderer.dispose();
-		for(String key : fonts.keySet()){
-			fonts.get(key).dispose();
+		for(String key : Main.getFonts().keySet()){
+			Main.getFonts().get(key).dispose();
 		}
     }
     
@@ -158,5 +131,7 @@ public class Title implements Screen{
     public void resume() {}
 
     @Override
-    public void hide() {}
+    public void hide() {
+
+    }
 }
