@@ -74,7 +74,7 @@ public abstract class Character {
     
     /**
      * stunメソッド
-     * シールドが壊れたしたときなどに気絶する処理です。
+     * シールドが壊れたときなどに気絶する処理です。
      */
     public abstract void stun();
     /**
