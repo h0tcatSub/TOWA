@@ -44,7 +44,7 @@ public class Main extends Game {
             int bgmIndex = random.nextInt(bgm.size());
             bgm.get(bgmIndex).loop(0.3f);
             String bgmName = ("BGM : ".concat(bgmNames.get(bgmIndex)));
-            fonts.put("plaingBGM", new GameFont(bgmName, 0, graphics.getHeight(), Color.BLACK, Color.WHITE, 10));
+            fonts.put("playingBGM", new GameFont(bgmName, 0, graphics.getHeight(), Color.BLACK, Color.WHITE, 10));
         }
 		setScreen(new Title(this));
 	}
